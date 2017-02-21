@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
@@ -79,6 +80,13 @@ namespace FullScale180.SemanticLogging.Sinks
             this.elasticsearchUrl = new Uri(new Uri(connectionString), BulkServiceOperationPath);
             this.index = index;
             this.type = type;
+
+            if (!string.IsNullOrEmpty(userName) && !string.IsNullOrEmpty(password))
+            {
+                var headerValue = Convert.ToBase64String(Encoding.ASCII.GetBytes(string.Join(":", userName, password)));
+                this.client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", headerValue);
+            }
+
             var sinkId = string.Format(CultureInfo.InvariantCulture, "ElasticsearchSink ({0})", instanceName);
             bufferedPublisher = BufferedEventPublisher<EventEntry>.CreateAndStart(sinkId, PublishEventsAsync, bufferInterval,
                 bufferingCount, maxBufferSize, cancellationTokenSource.Token);

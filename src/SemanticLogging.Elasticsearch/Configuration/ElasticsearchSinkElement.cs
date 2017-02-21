@@ -38,6 +38,8 @@ namespace FullScale180.SemanticLogging.Configuration
                 (int?)element.Attribute("bufferingCount") ?? Buffering.DefaultBufferingCount,
                 (int?)element.Attribute("maxBufferSize") ?? Buffering.DefaultMaxBufferSize,
                 element.Attribute("bufferingFlushAllTimeoutInSeconds").ToTimeSpan() ?? Constants.DefaultBufferingFlushAllTimeout,
+                (string)element.Attribute("userName"),
+                (string)element.Attribute("password"),
                 (string)element.Attribute("jsonGlobalContextExtension"));
         }
     }

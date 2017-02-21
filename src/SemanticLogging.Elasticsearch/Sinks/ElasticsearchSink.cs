@@ -50,13 +50,15 @@ namespace FullScale180.SemanticLogging.Sinks
         /// <param name="bufferInterval">The buffering interval to wait for events to accumulate before sending them to Elasticsearch.</param>
         /// <param name="bufferingCount">The buffering event entry count to wait before sending events to Elasticsearch </param>
         /// <param name="maxBufferSize">The maximum number of entries that can be buffered while it's sending to Windows Azure Storage before the sink starts dropping entries.</param>
+        /// <param name="userName">The username to authenticate with Elasticsearch using Basic HTTP authentication.</param>
+        /// <param name="password">The password to authenticate with Elasticsearch using Basic HTTP authentication.</param>
         /// <param name="onCompletedTimeout">Defines a timeout interval for when flushing the entries after an <see cref="OnCompleted"/> call is received and before disposing the sink.
         /// This means that if the timeout period elapses, some event entries will be dropped and not sent to the store. Normally, calling <see cref="IDisposable.Dispose"/> on 
         /// the <see cref="System.Diagnostics.Tracing.EventListener"/> will block until all the entries are flushed or the interval elapses.
         /// If <see langword="null"/> is specified, then the call will block indefinitely until the flush operation finishes.</param>
         /// <param name="jsonGlobalContextExtension">A json encoded key/value set of global environment parameters to be included in each log entry</param>
         public ElasticsearchSink(string instanceName, string connectionString, string index, string type, bool? flattenPayload, TimeSpan bufferInterval,
-            int bufferingCount, int maxBufferSize, TimeSpan onCompletedTimeout, string jsonGlobalContextExtension = null)
+            int bufferingCount, int maxBufferSize, TimeSpan onCompletedTimeout, string userName, string password, string jsonGlobalContextExtension = null)
         {
             Guard.ArgumentNotNullOrEmpty(instanceName, "instanceName");
             Guard.ArgumentNotNullOrEmpty(connectionString, "connectionString");

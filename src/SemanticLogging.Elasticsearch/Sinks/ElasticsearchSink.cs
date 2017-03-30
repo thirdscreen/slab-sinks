@@ -221,7 +221,7 @@ namespace FullScale180.SemanticLogging.Sinks
                     // NOTE: This only works with Elasticsearch 1.0
                     // Alternatively we could query ES as part of initialization check results or fall back to trying <1.0 parsing
                     // We should also consider logging errors for individual entries
-                    return items.Count(t => t["create"]["status"].Value<int>().Equals(201));
+                    return items.Count(t => t["index"]["status"].Value<int>().Equals(201));
 
                     // Pre-1.0 Elasticsearch
                     // return items.Count(t => t["create"]["ok"].Value<bool>().Equals(true));

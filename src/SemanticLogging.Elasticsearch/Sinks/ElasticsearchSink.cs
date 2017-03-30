@@ -92,6 +92,8 @@ namespace FullScale180.SemanticLogging.Sinks
                 bufferingCount, maxBufferSize, cancellationTokenSource.Token);
 
             this._jsonGlobalContextExtension = !string.IsNullOrEmpty(jsonGlobalContextExtension)? JsonConvert.DeserializeObject<Dictionary<string, string>>(jsonGlobalContextExtension): null;
+
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
         }
 
         /// <summary>

@@ -92,7 +92,7 @@ namespace FullScale180.SemanticLogging.Sinks.Tests
             base.Arrange();
 
             this.sink = new ElasticsearchSink("instance", this.elasticsearchUrl, TestIndex, "etw", true, TimeSpan.FromSeconds(1), 100, 3000,
-                TimeSpan.FromMinutes(1));
+                TimeSpan.FromMinutes(1), null, null);
             this.msgPropValues = new[] { "1", "2", "3" };
         }
 

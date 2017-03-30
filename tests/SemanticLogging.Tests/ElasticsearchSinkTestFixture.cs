@@ -24,19 +24,19 @@ namespace FullScale180.SemanticLogging.Sinks.Tests
         [TestMethod]
         public void when_creating_sink_for_null_connection_string_then_throws()
         {
-            AssertEx.Throws<ArgumentNullException>(() => new ElasticsearchSink("instanceName", null, "logstash", "etw", true, TimeSpan.FromSeconds(1), 1000, 10000, Timeout.InfiniteTimeSpan));
+            AssertEx.Throws<ArgumentNullException>(() => new ElasticsearchSink("instanceName", null, "logstash", "etw", true, TimeSpan.FromSeconds(1), 1000, 10000, Timeout.InfiniteTimeSpan, null, null));
         }
 
         [TestMethod]
         public void when_creating_sink_with_invalid_connection_string_then_throws()
         {
-            AssertEx.Throws<UriFormatException>(() => new ElasticsearchSink("instanceName", "InvalidConnection", "logstash", "etw", true, TimeSpan.FromSeconds(1), 1000, 10000, Timeout.InfiniteTimeSpan));
+            AssertEx.Throws<UriFormatException>(() => new ElasticsearchSink("instanceName", "InvalidConnection", "logstash", "etw", true, TimeSpan.FromSeconds(1), 1000, 10000, Timeout.InfiniteTimeSpan, null, null));
         }
 
         [TestMethod]
         public void when_creating_sink_with_small_buffer_size_then_throws()
         {
-            AssertEx.Throws<ArgumentException>(() => new ElasticsearchSink("instanceName", DevelopmentElasticsearchEndpoint, "logstash", "etw", true, TimeSpan.FromSeconds(1), 1000, 10, Timeout.InfiniteTimeSpan));
+            AssertEx.Throws<ArgumentException>(() => new ElasticsearchSink("instanceName", DevelopmentElasticsearchEndpoint, "logstash", "etw", true, TimeSpan.FromSeconds(1), 1000, 10, Timeout.InfiniteTimeSpan, null, null));
         }
 
         [TestMethod]
@@ -47,17 +47,17 @@ namespace FullScale180.SemanticLogging.Sinks.Tests
 
             foreach (var invalidChar in testInvalidCharacters)
             {
-                AssertEx.Throws<ArgumentException>(() => new ElasticsearchSink("instanceName", DevelopmentElasticsearchEndpoint, string.Format("{0}testindex", invalidChar), "etw", true, TimeSpan.FromSeconds(1), 1000, 10000, Timeout.InfiniteTimeSpan));
+                AssertEx.Throws<ArgumentException>(() => new ElasticsearchSink("instanceName", DevelopmentElasticsearchEndpoint, string.Format("{0}testindex", invalidChar), "etw", true, TimeSpan.FromSeconds(1), 1000, 10000, Timeout.InfiniteTimeSpan, null, null));
             }
 
             foreach (var invalidChar in testInvalidCharacters)
             {
-                AssertEx.Throws<ArgumentException>(() => new ElasticsearchSink("instanceName", DevelopmentElasticsearchEndpoint, string.Format("test{0}index", invalidChar), "etw", true, TimeSpan.FromSeconds(1), 1000, 10000, Timeout.InfiniteTimeSpan));
+                AssertEx.Throws<ArgumentException>(() => new ElasticsearchSink("instanceName", DevelopmentElasticsearchEndpoint, string.Format("test{0}index", invalidChar), "etw", true, TimeSpan.FromSeconds(1), 1000, 10000, Timeout.InfiniteTimeSpan, null, null));
             }
 
             foreach (var invalidChar in testInvalidCharacters)
             {
-                AssertEx.Throws<ArgumentException>(() => new ElasticsearchSink("instanceName", DevelopmentElasticsearchEndpoint, string.Format("testindex{0}", invalidChar), "etw", true, TimeSpan.FromSeconds(1), 1000, 10000, Timeout.InfiniteTimeSpan));
+                AssertEx.Throws<ArgumentException>(() => new ElasticsearchSink("instanceName", DevelopmentElasticsearchEndpoint, string.Format("testindex{0}", invalidChar), "etw", true, TimeSpan.FromSeconds(1), 1000, 10000, Timeout.InfiniteTimeSpan, null, null));
             }
         }
     }
@@ -302,7 +302,7 @@ namespace FullScale180.SemanticLogging.Sinks.Tests
                     Content = "{ \"error\": \"InvalidIndexNameException[[log,stash] Invalid index name [log,stash], must not contain the following characters [\\\\, /, *, ?, \\\", <, >, |,  , ,]]\",\"status\": 400}"
                 });
 
-                var sink = new ElasticsearchSink("instance", endpoint, "slabtest", "etw", true, TimeSpan.FromSeconds(1), 100, 800, TimeSpan.FromMinutes(1));
+                var sink = new ElasticsearchSink("instance", endpoint, "slabtest", "etw", true, TimeSpan.FromSeconds(1), 100, 800, TimeSpan.FromMinutes(1), null, null);
 
                 sink.OnNext(EventEntryTestHelper.Create());
 

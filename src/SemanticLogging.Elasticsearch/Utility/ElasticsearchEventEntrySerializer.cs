@@ -72,6 +72,7 @@ namespace FullScale180.SemanticLogging.Utility
 
             this.writer.WriteStartObject();
             WriteValue("EventId", entry.EventId);
+            WriteValue("EventName", entry.Schema.TaskName);
             WriteValue("EventDate", entry.Timestamp.UtcDateTime);
             WriteValue("Keywords", (long)entry.Schema.Keywords);
             WriteValue("ProviderId", entry.Schema.ProviderId);
